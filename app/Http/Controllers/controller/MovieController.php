@@ -90,7 +90,18 @@ class MovieController extends Controller
     public function update(Request $request, movie $movie)
     {
         $request->validate(['title'=>'required','genre'=>'required']);
+        $imageName = '';
+        if($request->poster){
+            $imageName = time() . '.' . $request->poster->extension();
+            $request->poster->move(public_path('uploads'), $imageName);
+            $movie->poster = $imageName;
+        }
+        $movie->title = $request->title;
+        $movie->genre = $request->genre;
+        $movie->release_year = $request->year;
+        $movie->update();
 
+        return redirect()->route('movie.index')->with('success', 'Movie has updated Successfully');
     }
 
     /**
@@ -99,9 +110,11 @@ class MovieController extends Controller
      * @param  \App\Model\movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(movie $movie)
+    public function destroy($id)
     {
-        //
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+        return redirect()->route('movie.index')->with('success', 'Movie has deleted Successfully');
     }
 
     public function all(){

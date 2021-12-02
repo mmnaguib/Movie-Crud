@@ -27,7 +27,12 @@
             <td>
                 <a href="{{ route('movie.show', $movie->id) }}" class="btn btn-info">Show</a>
                 <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <form method="POST" action="{{ route('movie.destroy', $movie->id) }}" style="display: inline-block">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure To Delete This Movie ?')">
+                        Delete
+                    </button>
+                </form>
             </td>
         </tr>
         @endforeach

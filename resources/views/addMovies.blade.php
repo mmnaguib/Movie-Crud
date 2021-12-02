@@ -2,7 +2,18 @@
 @section('content')
 @extends('navbar')
 <h1>Add New Movie</h1>
-<form action="{{ route('movie.store') }}" method="POST" enctype="multipart/form-data">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        There are Some Problem
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+@endif
+<form action="{{ route('movie.store') }}" method="POST" enctype="multipart/form-data" class="createForm">
     @csrf
     <label for="title">title</label>
     <input type="text" class="form-control" id="title" name="title"/>
