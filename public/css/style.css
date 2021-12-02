@@ -1,0 +1,15 @@
+form{
+    width: 400px;
+    margin: auto;
+    background: #3e58b5;
+    padding: 15px;
+    color: #fff;
+    border-radius: 15px;
+}
+.form-control{
+    width: 80%;
+}
+input[type="file"]{
+    margin: 0 0 15px 0;
+}
+
